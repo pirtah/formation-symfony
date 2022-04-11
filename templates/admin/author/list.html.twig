@@ -1,0 +1,37 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+    <h1>Liste des auteurs</h1>
+    <a href="{{ path('app_admin_author_create') }}">Ajouter un auteur</a>
+    <table>
+        <thead>
+            <tr>
+                <td>Nom</td>
+                <td>Description</td>
+                <td>Créé le </td>
+                <td>Modifié le </td>
+                <td>Actions</td>
+            </tr>
+        </thead>
+        <tbody>
+        
+            {% for author in authors %}
+                <tr>
+                    <td>{{author.name}} </td>
+                    <td>{{author.description}} </td>
+                    <td>{{author.createdAt | date('d/m/Y')}} - {{author.createdAt | date('H:i')}}</td>
+                    <td>{{author.updatedAt | date('d/m/Y')}} - {{author.createdAt | date('H:i')}}</td>
+                    <td>
+                        <a href="{{ path('app_admin_author_update', {'id': author.id}) }}">Modifier</a>
+                        <a href="{{ path('app_admin_author_delete', {'id': author.id}) }}">Supprimer</a>
+                    </td>
+
+                </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+    <br>
+    Total : {{ authors | length }}
+{% endblock %}

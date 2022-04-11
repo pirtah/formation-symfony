@@ -1,0 +1,13 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+    <h1>Modification d'un auteur</h1>
+    {{ form_start(form) }}
+
+        {{ form_row(form.name) }}
+        {{ form_row(form.description) }}
+
+        <button type="submit" class=" ">Modifier l'auteur</button>
+    {{ form_end(form) }}
+{% endblock %}
