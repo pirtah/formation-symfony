@@ -11,18 +11,19 @@ App\Entity\Author:
     createdAt: <dateTime()>
     updatedAt: <dateTime()>
 
-App\Entity\Book:
-  book1:
-    title: Harry Potter
-    description: Description Harry Potter
-    price: 8.9
+App\Entity\Category:
+  category{1..100}:
+    title: <fr_FR:word()>
     createdAt: <dateTime()>
     updatedAt: <dateTime()>
-    author: "@author*"
-  book{2..100}:
+
+App\Entity\Book:
+  book{1..100}:
     title: <fr_FR:word()>
     description: <fr_FR:realText()>
     price: <randomFloat(2, 5, 20)>
     createdAt: <dateTime()>
     updatedAt: <dateTime()>
     author: "@author*"
+    categories: ['@category*', '@category*']
+

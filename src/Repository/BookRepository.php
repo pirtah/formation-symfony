@@ -48,6 +48,45 @@ class BookRepository extends ServiceEntityRepository
 
     public function findByPriceBetween(float $minimum, float $maximum): array
     {
-        
+        return $this->createQueryBuilder('book')
+            ->andWhere('book.price >= :min')
+            ->andWhere('book.price <= :max')
+            ->setParameter('min', $minimum)
+            ->setParameter('max', $maximum)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findByPriceBetweenOrder(float $minimum, float $maximum): array
+    {
+        return $this->createQueryBuilder('book')
+            ->andWhere('book.price >= :min')
+            ->andWhere('book.price <= :max')
+            ->setParameter('min', $minimum)
+            ->setParameter('max', $maximum)
+            ->orderBy('book.price', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findByAuthorName(string $authorName): array
+    {
+        return $this->createQueryBuilder('book')
+            ->leftjoin('book.author', 'author')
+            ->andWhere('author.name LIKE :authorName')
+            ->setParameter('authorName', $authorName)
+            ->orderBy('book.price', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findByCategory(string $category): array
+    {
+        return $this->createQueryBuilder('book')
+            ->leftjoin('book.categories', 'category')
+            ->andWhere('category.title LIKE :category')
+            ->setParameter('category', $category)
+            ->getQuery()
+            ->getResult();
     }
 }

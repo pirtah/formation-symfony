@@ -2,17 +2,18 @@
 
 {% block body %}
 
-    <h1>Liste des livres</h1>
+    <h1>{% block title %}Liste des livres{% endblock %} </h1>
     <a href="{{ path('app_admin_book_create') }}">Ajouter un livre</a>
     <table>
         <thead>
             <tr>
                 <td>#</td>
                 <td>Titre</td>
-                <td>Description</td>
+                {# <td>Description</td> #}
                 <td>Créé le </td>
                 <td>Modifié le </td>
                 <td>Prix</td>
+                <td>Catégories</td>
                 <td>Auteur</td>
                 <td>Actions</td>
             </tr>
@@ -23,10 +24,17 @@
                 <tr>
                     <td>{{book.id}} </td>
                     <td>{{book.title}} </td>
-                    <td>{{book.description}} </td>
+                   {#  <td>{{book.description}} </td> #}
                     <td>{{book.createdAt | date('d/m/Y')}} - {{book.createdAt | date('H:i')}}</td>
                     <td>{{book.updatedAt | date('d/m/Y')}} - {{book.createdAt | date('H:i')}}</td>
                     <td>{{book.price}} </td>
+                    <td>
+                        {% for category in book.categories %}
+                            <a href="{{ path('app_admin_book_listByCategory', {'nomCategory': category.title}) }}">{{category.title }}</a>
+                             - 
+                        {% endfor %}
+                    
+                    </td>
                     <td>{{book.author.name}} </td>
                     <td>
                         <a href="{{ path('app_admin_book_update', {'id': book.id}) }}">Modifier</a>

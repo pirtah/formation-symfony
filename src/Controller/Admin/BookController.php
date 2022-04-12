@@ -59,4 +59,38 @@ class BookController extends AbstractController
         $bookRepository->remove($book);
         return $this->redirectToRoute('app_admin_book_list');
     }
+
+    #[Route('/admin/books/par-prix/{min}/{max}', name:'app_admin_book_listByPrice')]
+    public function listByPrice(BookRepository $bookRepository, float $min, float $max): Response{
+        $books = $bookRepository->findByPriceBetween($min, $max);
+        return $this->render('/admin/book/listByPrice.html.twig', [
+            'books' => $books,
+        ]);
+    }
+
+    #[Route('/admin/books/par-prix-entre/{min}/{max}', name:'app_admin_book_listByPriceOrder')]
+    public function listByPriceOrder(BookRepository $bookRepository, float $min, float $max): Response{
+        $books = $bookRepository->findByPriceBetweenOrder($min, $max);
+        return $this->render('/admin/book/listByPriceOrder.html.twig', [
+            'books' => $books,
+        ]);
+    }
+
+    #[Route('/admin/books/par-auteur/{authorName}', name:'app_admin_book_listByAuthorName')]
+    public function listByAuthorName(BookRepository $bookRepository, string $authorName): Response{
+        $books = $bookRepository->findByAuthorName($authorName);
+        return $this->render('/admin/book/listByAuthorName.html.twig', [
+            'books' => $books,
+            'author' => $authorName,
+        ]);
+    }
+
+    #[Route('/admin/books/par-categorie/{nomCategory}', name:'app_admin_book_listByCategory')]
+    public function listByCategory(BookRepository $bookRepository, string $nomCategory): Response{
+        $books = $bookRepository->findByCategory($nomCategory);
+        return $this->render('/admin/book/listByCategory.html.twig', [
+            'books' => $books,
+            'category' => $nomCategory,
+        ]);
+    }
 }

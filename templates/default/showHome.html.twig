@@ -1,0 +1,10 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div class="container">
+        <h1>Accueil</h1>
+
+        <a href="{{ path('app_admin_book_list') }}" class="btn btn-success">Voir livres</a>
+        <a href="{{ path('app_admin_author_list') }}" class="btn btn-success">Voir auteurs</a>
+    </div>
+{% endblock %}

@@ -69,4 +69,12 @@ class AuthorController extends AbstractController
         $entityManager->flush();
         return $this->redirectToRoute('app_admin_author_list');
     }
+
+    #[Route('/admin/auteurs/par-nom/{name}', name:'app_admin_author_listByName')]
+    public function listByName(AuthorRepository $authorRepository, string $name): Response
+    {
+        return $this->render('/admin/author/listByName.html.twig', [
+            'authors' => $authorRepository->findByName($name)
+        ]);
+    }
 }
