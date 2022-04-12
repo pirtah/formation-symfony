@@ -1,0 +1,28 @@
+# Pour mettre des commentaires
+App\Entity\Author:
+  author1:
+    name: John
+    description: Blablablal
+    createdAt: <dateTime()>
+    updatedAt: <dateTime()>
+  author{2..50}:
+    name: <fr_FR:name()>
+    description: <fr_FR:realText()>
+    createdAt: <dateTime()>
+    updatedAt: <dateTime()>
+
+App\Entity\Book:
+  book1:
+    title: Harry Potter
+    description: Description Harry Potter
+    price: 8.9
+    createdAt: <dateTime()>
+    updatedAt: <dateTime()>
+    author: "@author*"
+  book{2..100}:
+    title: <fr_FR:word()>
+    description: <fr_FR:realText()>
+    price: <randomFloat(2, 5, 20)>
+    createdAt: <dateTime()>
+    updatedAt: <dateTime()>
+    author: "@author*"
