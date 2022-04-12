@@ -43,7 +43,7 @@ class AuthorController extends AbstractController
         ]);
     }
 
-    #[Route('admin/auteurs/{id}/modifier', name:'app_admin_author_update', methods:['GET', 'POST'])]
+    #[Route('/admin/auteurs/{id}/modifier', name:'app_admin_author_update', methods:['GET', 'POST'])]
     public function update(Author $author, Request $request, AuthorRepository $repository): Response
     {
         $form = $this->createForm(AuthorType::class, $author)->handleRequest($request);

@@ -1,0 +1,22 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+    <h1>{% block page_title %}Ajouter un livre{% endblock %}</h1>
+    <div class="container mx-auto">
+        {{ form_start(form) }}
+
+            {{ form_row(form.title) }}
+            {{ form_row(form.description) }}
+
+            {{ form_row(form.price) }}
+            {{ form_row(form.author) }}
+            {{ form_row(form.createdAt) }}
+            {{ form_row(form.updatedAt) }}
+            <div class="row mx-auto">
+            
+                <button type="submit" class="btn btn-warning" colspan='4'>Ajouter le livre</button>
+            </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
