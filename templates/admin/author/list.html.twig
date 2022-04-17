@@ -4,6 +4,13 @@
 
     <h1>{% block title %}Liste des auteurs{% endblock %} </h1>
     <a href="{{ path('app_admin_author_create') }}">Ajouter un auteur</a>
+    <h2>Rechercher</h2>
+    {{ form_start(form) }}
+        {{ form_rest(form) }}
+
+        <button type="submit">Rechercher</button>
+    {{ form_end(form) }}
+
     <table>
         <thead>
             <tr>

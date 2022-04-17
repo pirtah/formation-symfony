@@ -1,0 +1,84 @@
+GET http://127.0.0.1:8000/api/categories
+
+###
+
+POST http://127.0.0.1:8000/api/categories
+Content-Type: application/json
+
+{
+    "title": "Policier"
+}
+
+### 
+GET http://127.0.0.1:8000/api/categories/101
+
+### 
+PUT http://127.0.0.1:8000/api/categories/101
+Content-Type: application/json
+
+{
+    "title": "PolicierDark"
+}
+
+### 
+DELETE http://127.0.0.1:8000/api/categories/101
+
+### 
+
+GET http://127.0.0.1:8000/api/authors
+
+###
+
+POST http://127.0.0.1:8000/api/authors
+Content-Type: application/json
+
+{
+    "name": "Tolkien",
+    "description": "Blablablalbla"
+}
+
+### 
+GET http://127.0.0.1:8000/api/authors/51
+
+### 
+PATCH http://127.0.0.1:8000/api/authors/51
+Content-Type: application/json
+
+{
+    "description": "Le seigneur des anneaux ..."
+}
+
+### 
+DELETE http://127.0.0.1:8000/api/authors/51
+
+### 
+
+GET http://127.0.0.1:8000/api/books
+
+###
+
+POST http://127.0.0.1:8000/api/books
+Content-Type: application/json
+
+{
+    "title": "Le seigneur des agneaux",
+    "description": "Blablablalbla",
+    "price": "18",
+    "author": "50",
+    "categories": [3,4]
+}
+
+### 
+GET http://127.0.0.1:8000/api/books/103
+
+### 
+PATCH http://127.0.0.1:8000/api/books/101
+Content-Type: application/json
+
+{
+    "description": "Livre génial !!!",
+    "price": "12"
+}
+
+### 
+DELETE http://127.0.0.1:8000/api/books/101

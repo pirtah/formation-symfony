@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\DTO\AuthorSearchCriteria;
 use App\Entity\Book;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
@@ -89,4 +90,5 @@ class BookRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
 }

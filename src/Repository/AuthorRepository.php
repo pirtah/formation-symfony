@@ -3,10 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\Author;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
+use App\DTO\AuthorSearchCriteria;
+use Doctrine\ORM\OptimisticLockException;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Author|null find($id, $lockMode = null, $lockVersion = null)
@@ -53,5 +54,36 @@ class AuthorRepository extends ServiceEntityRepository
             ->orderBy('author.name', 'DESC')
             ->getQuery()
             ->getResult();
+    }
+
+    /**
+     * Recherche tout les auteurs correspondant
+     * aux critères de recherche
+     */
+    public function findByCriteria(AuthorSearchCriteria $criteria): array
+    {
+        $qb =  $this
+            ->createQueryBuilder('author')
+            ->setMaxResults($criteria->limit)
+            ->setFirstResult($criteria->limit * ($criteria->page - 1))
+            ->orderBy('author.' . $criteria->orderBy, $criteria->direction);
+
+        if ($criteria->name) {
+            $qb
+                ->andWhere('author.name LIKE :name')
+                ->setParameter('name', "%{$criteria->name}%");
+        }
+
+        if ($criteria->updatedAtStart) {
+            $qb
+                ->andWhere('author.updatedAt >= :updateDateStart')
+                ->setParameter('updateDateStart', $criteria->updatedAtStart);
+        }
+        if ($criteria->updatedAtStop) {
+            $qb
+                ->andWhere('author.updatedAt <= :updateDateStop')
+                ->setParameter('updateDateStop', $criteria->updatedAtStop);
+        }
+        return $qb->getQuery()->getResult();
     }
 }

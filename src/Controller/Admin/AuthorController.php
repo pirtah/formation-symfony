@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
+use App\DTO\AuthorSearchCriteria;
 use App\Entity\Author;
+use App\Form\AuthorSearchType;
 use App\Form\AuthorType;
 use App\Repository\AuthorRepository;
 use DateTime;
@@ -17,11 +19,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class AuthorController extends AbstractController
 {
     #[Route('/admin/auteurs', name:'app_admin_author_list', methods:['GET'])]
-    public function list(AuthorRepository $authorRepository): Response
+    public function list(AuthorRepository $authorRepository, Request $request): Response
     {
         $authors = $authorRepository->findAll();
+        $form = $this->createForm(AuthorSearchType::class, new AuthorSearchCriteria())->handleRequest($request);
+        $searchCriteria = $form->getData();
+
         return $this->render("/admin/author/list.html.twig", [
-            'authors' => $authors,
+            'authors' => $authorRepository->findByCriteria($searchCriteria),
+            'form' => $form->createView(),
         ]);
     }
 

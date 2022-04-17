@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\BookRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\BookRepository;
+use Doctrine\Common\Collections\Collection;
+use Gedmo\Mapping\Annotation\Timestampable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Ignore;
 
 #[ORM\Entity(repositoryClass: BookRepository::class)]
 class Book
@@ -22,9 +24,11 @@ class Book
     private $description;
 
     #[ORM\Column(type: 'datetime')]
+    #[Timestampable(on: 'create')]
     private $createdAt;
 
     #[ORM\Column(type: 'datetime')]
+    #[Timestampable(on: 'update')]
     private $updatedAt;
 
     #[ORM\Column(type: 'float')]
@@ -35,6 +39,7 @@ class Book
     private $author;
 
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'books')]
+    //#[Ignore]
     private $categories;
 
     public function __construct()
